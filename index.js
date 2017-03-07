@@ -1,9 +1,12 @@
 'use strict'
 
+const dotenv = require('dotenv');
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+
+dotenv.load();
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -63,4 +66,5 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-const token = "EAAZAEXqKtzwABAK3JggZAaV4bmZBPF2JqlP1X7O02cX8uYzmNOQOKCdMQly0jenYQacWwHbsseoQ1tTnCii0IKj61ZAhSYHtxudTIqHYOLrZAGwhk8huOZAdJoZC8uaHmxZBvjVYjXxU5nIXZCpNup0iWq3B1ZBhqB7ut9LVZCeNC9s3wZDZD"
+const token = process.env.PAGE_TOKEN;
+
