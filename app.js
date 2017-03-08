@@ -8,6 +8,8 @@ const app = express()
 
 dotenv.load();
 
+const token = process.env.PAGE_TOKEN;
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -21,31 +23,15 @@ app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
-function sendTextMessage(sender, text) {
-    let messageData = { text:text }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}
-
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'supersecretpassword') {
-        res.send(req.query['hub.challenge'])
-    }
-    res.send('Error, wrong token')
+		console.log("Verified webhook");
+    	res.status(200).send(req.query["hub.challenge"]);
+	} else {
+		console.error("Verification failed. The tokens do not match.");
+    	res.sendStatus(403);
+	}
 })
 
 // Spin up the server
@@ -66,5 +52,24 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-const token = process.env.PAGE_TOKEN;
+
+
+function sendTextMessage(sender, text) {
+    let messageData = { text:text }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
 

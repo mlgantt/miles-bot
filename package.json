@@ -2,16 +2,18 @@
   "name": "miles-bot",
   "version": "1.0.0",
   "description": "FB Messenger bot for Miles",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "Miles Gantt",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "dotenv": "^2.0.0",
     "express": "^4.15.2",
-    "request": "^2.80.0",
-    "dotenv": "^2.0.0"
+    "mongoose": "^4.8.6",
+    "request": "^2.80.0"
   }
 }
