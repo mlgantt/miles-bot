@@ -75,16 +75,13 @@ function processPostback(event) {
     var senderId = event.sender.id;
     var payload = event.postback.payload;
 
-    console.log("message")
-
     if (payload === "Greeting") {
-    	console.log("greeting")
         // Get user's first name from the User Profile API
         // and include it in the greeting
         request({
             url: "https://graph.facebook.com/v2.6/" + senderId,
             qs: {
-                access_token: process.env.PAGE_ACCESS_TOKEN,
+                access_token: process.env.FB_PAGE_ACCESS_TOKEN,
                 fields: "first_name"
             },
             method: "GET"
@@ -94,7 +91,6 @@ function processPostback(event) {
             if (error) {
                 console.log("Error getting user's name: " + error);
             } else {
-            	console.log("name");
                 var bodyObj = JSON.parse(body);
                 name = bodyObj.first_name;
                 greeting = "Hi " + name + ". ";
@@ -107,10 +103,10 @@ function processPostback(event) {
 
 // sends message to user
 function sendMessage(recipientId, message) {
-	console.log("send")
+	console.log("send",recipientId, message)
     request({
         url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+        qs: { access_token: process.env.FB_PAGE_ACCESS_TOKEN },
         method: "POST",
         json: {
             recipient: { id: recipientId },
