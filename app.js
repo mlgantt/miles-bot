@@ -82,6 +82,7 @@ function processPostback(event) {
             },
             method: "GET"
         }, function(error, response, body) {
+        	var name = "";
             var greeting = "";
             if (error) {
                 console.log("Error getting user's name: " + error);
