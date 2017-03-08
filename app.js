@@ -20,12 +20,12 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-    res.send('Hello world, I am a chat bot')
+    res.send('Hello world, I am a chat boo')
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'supersecretpassword') {
+    if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
 		console.log("Verified webhook");
     	res.status(200).send(req.query["hub.challenge"]);
 	} else {
