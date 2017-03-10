@@ -1,5 +1,6 @@
-/* eslint-disable brace-style */
-/* eslint-disable camelcase */
+
+
+
 // CONFIG===============================================
 /* Uses the slack button feature to offer a real time bot to multiple teams */
 var Botkit = require('botkit')
@@ -106,7 +107,7 @@ var handler = function (obj) {
   }
 }
 
-var addNewUser = function (id, ts) {
+// var addNewUser = function (id, ts) {
 //   controller.storage.users.get(id, function (err, user) {
 //     if (err) {
 //       console.log(err)
@@ -118,5 +119,3 @@ var addNewUser = function (id, ts) {
 // }
 
 exports.handler = handler
-/* eslint-disable brace-style */
-/* eslint-disable camelcase */
