@@ -6,7 +6,7 @@
   <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '<%- process.env.FACEBOOK_APP_ID %>',
+        appId      : '<%- process.env.FB_APP_ID %>',
         xfbml      : true,
         version    : 'v2.6'
       });
@@ -23,12 +23,12 @@
 
 
   <center>
-    <h1>Messenger bot Botkit</h1>
-    <h2>Demo with Express and MongoDB</h2>
+    <h1>MilesBot</h1>
+    <h2>Demo using Messenger,Express,Botkit, and MongoDB</h2>
 
     <div class="fb-send-to-messenger"
-      messenger_app_id="<%- process.env.FACEBOOK_APP_ID %>"
-      page_id="<%- process.env.FACEBOOK_PAGE_ID %>"
+      messenger_app_id="<%- process.env.FB_APP_ID %>"
+      page_id="<%- process.env.FB_PAGE_ID %>"
       data-ref="PASS_THROUGH_PARAM"
       color="blue"
       size="xlarge"></div>

@@ -10,7 +10,7 @@ var controller = Botkit.facebookbot({
   debug: true,
   access_token: process.env.FB_PAGE_ACCESS_TOKEN,
   verify_token: process.env.VERIFY_TOKEN
-  storage: db
+  // storage: db
 })
 
 var bot = controller.spawn({})
