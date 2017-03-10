@@ -118,8 +118,9 @@ function processMessage(event) {
             // keywords and send back the corresponding movie detail.
             // Otherwise search for new movie.
             switch (formattedMsg) {
-            	case "weather"
+            	case "weather":
             		getWeather(senderId,'santa monica');
+            		break;
                 case "plot":
                 case "date":
                 case "runtime":
