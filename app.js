@@ -119,7 +119,7 @@ function processMessage(event) {
             // Otherwise search for new movie.
             switch (formattedMsg) {
             	case "weather":
-            		getWeather(senderId,'santa monica');
+            		getWeather(senderId,'london');
             		break;
                 case "plot":
                 case "date":
