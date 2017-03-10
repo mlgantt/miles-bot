@@ -3,14 +3,14 @@
 // CONFIG===============================================
 /* Uses the slack button feature to offer a real time bot to multiple teams */
 var Botkit = require('botkit')
-// var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/botkit-demo'
+// var mongoUri = process.env.MONGODB_URI
 // var db = require('../../config/db')({mongoUri: mongoUri})
 
 var controller = Botkit.facebookbot({
   debug: true,
   access_token: process.env.FB_PAGE_ACCESS_TOKEN,
   verify_token: process.env.VERIFY_TOKEN
-  // storage: db
+  storage: db
 })
 
 var bot = controller.spawn({})
@@ -45,7 +45,7 @@ var handler = function (obj) {
           }
 
           // save if user comes from m.me adress or Facebook search
-          create_user_if_new(facebook_message.sender.id, facebook_message.timestamp)
+          // addNewUser(facebook_message.sender.id, facebook_message.timestamp)
 
           controller.receiveMessage(bot, message)
         }
@@ -60,7 +60,7 @@ var handler = function (obj) {
           }
 
             // save if user comes from "Send to Messenger"
-          create_user_if_new(facebook_message.sender.id, facebook_message.timestamp)
+          // addNewUser(facebook_message.sender.id, facebook_message.timestamp)
 
           controller.trigger('facebook_optin', [bot, message])
         }
@@ -106,7 +106,7 @@ var handler = function (obj) {
   }
 }
 
-// var create_user_if_new = function (id, ts) {
+var addNewUser = function (id, ts) {
 //   controller.storage.users.get(id, function (err, user) {
 //     if (err) {
 //       console.log(err)
