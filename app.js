@@ -11,11 +11,19 @@ const db = mongoose.connect(process.env.MONGODB_URI);
 const Movie = require("./models/movie");
 const Weather = require("./models/weather");
 
-const app = express()
+const app = express();
 
-// dotenv.load();
+var Botkit = require('botkit');
+var controller = Botkit.facebookbot({
+        access_token: process.env.FB_PAGE_ACCESS_TOKEN,
+        verify_token: process.env.VERIFY_TOKEN
+})
 
-const token = process.env.PAGE_TOKEN;
+var bot = controller.spawn({
+});
+
+
+// dotenv.load(); //For Local Dev
 
 app.set('port', (process.env.PORT || 5000))
 
