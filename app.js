@@ -227,20 +227,21 @@ function sendMessage(recipientId, message) {
 
 
 function getWeather(userId, city) {
-    request("http://api.openweathermap.org/data/2.5/weather?q=" + city, function(error, response, body) {
+    request("http://api.wunderground.com/api/"+process.env.WUNDERGROUND_KEY+"/conditions/q/UK/London.json", function(error, response, body) {
+    	console.log(response,body);
         if (!error && response.statusCode == 200) {
             var weatherObj = JSON.parse(body);
             if (weatherObj.Response === "True") {
             	var message;
-                var update = {
-                    forcast: weatherObj.weather.description,
-                    icon: weatherObj.weather.icon,
-                    currentTemp: weatherObj.main.temp,
-                    minTemp: weatherObj.main.temp_min,
-                    maxTemp: weatherObj.main.temp_max
-                };
+                // var update = {
+                //     forcast: weatherObj.weather.description,
+                //     icon: weatherObj.weather.icon,
+                //     currentTemp: weatherObj.main.temp,
+                //     minTemp: weatherObj.main.temp_min,
+                //     maxTemp: weatherObj.main.temp_max
+                // };
 
-                message = "The weather in "+city+" is currently "+update.forcast+" and "+update.currentTemp+" degrees. The high for today is "+update.maxTemp+"degrees, and the low is "+update.minTemp+" degrees."
+                // message = "The weather in "+city+" is currently "+update.forcast+" and "+update.currentTemp+" degrees. The high for today is "+update.maxTemp+"degrees, and the low is "+update.minTemp+" degrees."
  
             	sendMessage(userId, message);
             } else {
