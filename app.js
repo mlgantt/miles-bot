@@ -248,7 +248,8 @@ function getWeather(userId, city) {
                 sendMessage(userId, { text: weatherObj.Error });
             }
         } else {
-            sendMessage(userId, { text: "Something went wrong. Try again." });
+        	console.log("Error: "+error);
+            sendMessage(userId, { text: "Something went wrong. Try again."});
         }
     });
 }
