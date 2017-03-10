@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const db = mongoose.connect(process.env.MONGODB_URI);
 
 const Movie = require("./models/movie");
+const Weather = require("./models/weather");
 
 const app = express()
 
@@ -82,7 +83,7 @@ function processPostback(event) {
             },
             method: "GET"
         }, function(error, response, body) {
-        	var name = "";
+            var name = "";
             var greeting = "";
             if (error) {
                 console.log("Error getting user's name: " + error);
@@ -91,7 +92,7 @@ function processPostback(event) {
                 name = bodyObj.first_name;
                 greeting = "Hi " + name + ". ";
             }
-            var message = greeting + "My name is MilesBot. I can tell you various details regarding movies. What movie would you like to know about?";
+            var message = greeting + "My name is MilesBot. I can tell you various details regarding movies, traffic, and weather. What movie would you like to know about?";
             sendMessage(senderId, { text: message });
         });
     } else if (payload === "Correct") {
@@ -117,6 +118,8 @@ function processMessage(event) {
             // keywords and send back the corresponding movie detail.
             // Otherwise search for new movie.
             switch (formattedMsg) {
+            	case "weather"
+            		getWeather(senderId,'santa monica');
                 case "plot":
                 case "date":
                 case "runtime":
@@ -217,6 +220,34 @@ function sendMessage(recipientId, message) {
     }, function(error, response, body) {
         if (error) {
             console.log("Error sending message: " + response.error);
+        }
+    });
+}
+
+
+function getWeather(userId, city) {
+    request("api.openweathermap.org/data/2.5/weather?q=" + city, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var weatherObj = JSON.parse(body);
+            if (weatherObj.Response === "True") {
+            	var message;
+                var update = {
+                    forcast: weatherObj.weather.description,
+                    icon: weatherObj.weather.icon,
+                    currentTemp: weatherObj.main.temp,
+                    minTemp: weatherObj.main.temp_min,
+                    maxTemp: weatherObj.main.temp_max
+                };
+
+                message = "The weather in "+city+" is currently "+update.forcast+" and "+update.currentTemp+" degrees. The high for today is "+update.maxTemp+"degrees, and the low is "+update.minTemp+" degrees."
+ 
+            	sendMessage(userId, message);
+            } else {
+                console.log(weatherObj.Error);
+                sendMessage(userId, { text: weatherObj.Error });
+            }
+        } else {
+            sendMessage(userId, { text: "Something went wrong. Try again." });
         }
     });
 }
