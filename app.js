@@ -92,7 +92,7 @@ function processPostback(event) {
                 name = bodyObj.first_name;
                 greeting = "Hi " + name + ". ";
             }
-            var message = greeting + "My name is MilesBot. I can tell you various details regarding movies, traffic, and weather. What movie would you like to know about?";
+            var message = greeting + "My name is MilesBot. I can tell you various details regarding movies, traffic, and weather. What would you like to know about?";
             sendMessage(senderId, { text: message });
         });
     } else if (payload === "Correct") {
@@ -227,7 +227,7 @@ function sendMessage(recipientId, message) {
 
 
 function getWeather(userId, city) {
-    request("api.openweathermap.org/data/2.5/weather?q=" + city, function(error, response, body) {
+    request("http://api.openweathermap.org/data/2.5/weather?q=" + city, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var weatherObj = JSON.parse(body);
             if (weatherObj.Response === "True") {
