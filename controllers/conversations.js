@@ -23,7 +23,7 @@ module.exports = function(controller) {
     });
 
 
-    controller.hears(["weather"], 'message_received', function(bot, message) {
+    // controller.hears(["weather"], 'message_received', function(bot, message) {
 
         // var txt = message.text;
         // console.log(txt)
@@ -56,7 +56,7 @@ module.exports = function(controller) {
         //         }
         //     })
         // })
-    });
+    // });
 
     controller.hears(['weather'], 'message_received', function(bot, message) {
 
