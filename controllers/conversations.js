@@ -58,29 +58,62 @@ module.exports = function(controller) {
         // })
     });
 
-    controller.hears(['pizzatime'], 'message_received', function(bot, message) {
-        var askFlavor = function(err, convo) {
-            convo.ask('What flavor of pizza do you want?', function(response, convo) {
+    controller.hears(['weather'], 'message_received', function(bot, message) {
+
+        bot.startConversation(message, function(err, convo) {
+            convo.say('I can help you with that.');
+
+            convo.ask('What city do you want to know the weather for?', function(response, convo) {
                 convo.say('Awesome.');
-                askSize(response, convo);
                 convo.next();
-            });
-        };
-        var askSize = function(response, convo) {
-            convo.ask('What size do you want?', function(response, convo) {
+            }, { 'key': 'city' });
+
+            convo.ask('What state is that in?', function(response, convo) {
                 convo.say('Ok.')
                 askWhereDeliver(response, convo);
                 convo.next();
-            });
-        };
-        var askWhereDeliver = function(response, convo) {
-            convo.ask('So where do you want it delivered?', function(response, convo) {
-                convo.say('Ok! Good bye.');
-                convo.next();
-            });
-        };
+            }, { 'key': 'state' });
 
-        bot.startConversation(message, askFlavor);
+            convo.on('end', function(convo) {
+
+                if (convo.status == 'completed') {
+                    // do something useful with the users responses
+                    var res = convo.extractResponses();
+                    var city = res.city.replace(' ', '_');
+                    var state = res.state.replace(' ', '_');
+
+                    console.log(city + ', ' + state);
+                    var url = '/api/' + process.env.WUNDERGROUND_KEY + '/forecast/q/'+state+'/'+city+'.json'
+
+                    http.get({
+                        host: 'api.wunderground.com',
+                        path: url
+                    }, function(response) {
+                        var body = '';
+                        response.on('data', function(d) {
+                            body += d;
+                        })
+                        response.on('end', function() {
+                            var data = JSON.parse(body);
+                            var days = data.forecast.simpleforecast.forecastday;
+                            for (i = 0; i < days.length; i++) {
+                                bot.reply(message, days[i].date.weekday +
+                                    ' high: ' + days[i].high.fahrenheit +
+                                    ' low: ' + days[i].low.fahrenheit +
+                                    ' condition: ' + days[i].conditions);
+                                bot.reply(message, days[i].icon_url);
+                            }
+                        })
+                    })
+
+
+                } else {
+                  console.log("something else happened")
+                    // something happened that caused the conversation to stop prematurely
+                }
+
+            });
+        });
     });
 
     // user says anything else
