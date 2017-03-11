@@ -10,7 +10,7 @@ module.exports = function(controller) {
     })
 
 
-    controller.hears(['weather'], 'message_received', function(bot, message) {
+    controller.hears(['cookies'], 'message_received', function(bot, message) {
 
         bot.startConversation(message, function(err, convo) {
 
