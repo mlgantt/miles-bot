@@ -23,7 +23,7 @@ module.exports = function(controller) {
     });
 
 
-    controller.hears(["weather"], ["mention", "direct_mention", "direct_message"], function(bot, message) {
+    controller.hears(["weather"],'message_received',function(bot, message) {
 
         var txt = message.text;
         txt = txt.toLowerCase().replace('weather ', '');
