@@ -9,10 +9,6 @@ module.exports = function(controller) {
         bot.reply(message, 'Hey there.')
     })
 
-    // user says anything else
-    controller.hears('(.*)', 'message_received', function(bot, message) {
-        bot.reply(message, 'you said ' + message.match[1])
-    })
 
     controller.hears(['cookies'], 'message_received', function(bot, message) {
 
@@ -25,4 +21,10 @@ module.exports = function(controller) {
             });
         });
     });
+
+    
+    // user says anything else
+    controller.hears('(.*)', 'message_received', function(bot, message) {
+        bot.reply(message, 'you said ' + message.match[1])
+    })
 }
