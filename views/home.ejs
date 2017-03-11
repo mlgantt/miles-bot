@@ -21,16 +21,42 @@
      }(document, 'script', 'facebook-jssdk'));
   </script>
 
+<div class="site-wrapper">
 
-  <center>
-    <h1>MilesBot</h1>
-    <h2>Demo using Messenger, Express, Botkit,and MongoDB</h2>
+      <div class="site-wrapper-inner">
 
-    <div class="fb-send-to-messenger"
-      messenger_app_id="<%- process.env.FB_APP_ID %>"
-      page_id="<%- process.env.FB_PAGE_ID %>"
-      data-ref="PASS_THROUGH_PARAM"
-      color="blue"
-      size="xlarge"></div>
-  </center>
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">MilesBot</h3>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Hello there.</h1>
+            <p class="lead">My name is MilesBot. I can tell you various details regarding movies, traffic, and weather. What would you like to know about?</p>
+            <p class="lead">
+                  <div class="fb-send-to-messenger"
+                      messenger_app_id="<%- process.env.FB_APP_ID %>"
+                      page_id="<%- process.env.FB_PAGE_ID %>"
+                      data-ref="PASS_THROUGH_PARAM"
+                      color="blue"
+                      size="xlarge">
+                  </div>
+              <a href="#" class="btn btn-lg btn-default">Learn more</a>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>This example uses<a href="https://howdy.ai/botkit/">Botkit</a>, <a href="https://expressjs.com/">Express</a>, and <a href="https://www.mongodb.com/">MongoDB</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
 </body>
