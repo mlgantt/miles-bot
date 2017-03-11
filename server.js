@@ -11,7 +11,7 @@ var path = require('path')
 // load environment variables,
 // either from .env files (development),
 // heroku environment in production, etc...
-dotenv.load()
+// dotenv.load()
 
 app.use(express.static(path.join(__dirname, '/public')))
 
