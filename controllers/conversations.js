@@ -70,7 +70,6 @@ module.exports = function(controller) {
 
             convo.ask('What state is that in?', function(response, convo) {
                 convo.say('Ok.')
-                askWhereDeliver(response, convo);
                 convo.next();
             }, { 'key': 'state' });
 
@@ -79,8 +78,8 @@ module.exports = function(controller) {
                 if (convo.status == 'completed') {
                     // do something useful with the users responses
                     var res = convo.extractResponses();
-                    var city = res.city.replace(' ', '_');
-                    var state = res.state.replace(' ', '_');
+                    var city = res.city;
+                    var state = res.state;
 
                     console.log(city + ', ' + state);
                     var url = '/api/' + process.env.WUNDERGROUND_KEY + '/forecast/q/'+state+'/'+city+'.json'
