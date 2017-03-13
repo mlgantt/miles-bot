@@ -37,18 +37,18 @@ module.exports = function(controller) {
                 convo.next();
             });
 
-            convo.ask('What state is that in?', function(response, convo) {
-                convo.say('Ok.')
-                convo.next();
-            }, { 'key': 'state' });
+            // convo.ask('What state is that in?', function(response, convo) {
+            //     convo.say('Ok.')
+            //     convo.next();
+            // }, { 'key': 'state' });
 
             convo.on('end', function(convo) {
 
                 if (convo.status == 'completed') {
                     // do something useful with the users responses
                     var res = convo.extractResponses();
-                    var city = res.city;
-                    var state = res.state;
+                    var city = 'Atlanta';
+                    var state = 'GA';
 
                     console.log(city + ', ' + state);
                     var url = '/api/' + process.env.WUNDERGROUND_KEY + '/forecast/q/'+state+'/'+city+'.json'
@@ -57,6 +57,7 @@ module.exports = function(controller) {
                         host: 'api.wunderground.com',
                         path: url
                     }, function(response) {
+                        console.log(response);
                         
                     })
 
