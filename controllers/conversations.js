@@ -1,3 +1,5 @@
+var http = require('http');
+
 module.exports = function(controller) {
     // this is triggered when a user clicks the send-to-messenger plugin
     controller.on('facebook_optin', function(bot, message) {
@@ -51,14 +53,14 @@ module.exports = function(controller) {
                     var state = 'GA';
 
                     console.log(city + ', ' + state);
-                    var url = '/api/' + process.env.WUNDERGROUND_KEY + '/forecast/q/'+state+'/'+city+'.json'
+                    var url = '/api/' + process.env.WUNDERGROUND_KEY + '/forecast/q/'+state+'/'+city+'.json';
 
                     http.get({
                         host: 'api.wunderground.com',
                         path: url
                     }, function(response) {
                         console.log(response);
-                        
+
                     })
 
 
